@@ -24,7 +24,14 @@ class App extends Component {
         usage: "중고책 판매",
         date: "2019. 1. 18 오전 10:17:21"
       }
-    ]
+    ],
+    keyword: ""
+  };
+
+  change = event => {
+    this.setState({
+      keyword: event.target.value
+    });
   };
 
   add = data => {
@@ -54,12 +61,24 @@ class App extends Component {
   };
 
   render() {
-    const { list } = this.state;
+    const { list, keyword } = this.state;
+    const filteredList = list.filter(
+      info => info.usage.indexOf(keyword) !== -1
+    );
+
     return (
       <React.Fragment>
         <AccountBookForm onAdd={this.add} />
+        <p>
+          <input
+            placeholder="검색어를 입력하세요."
+            onChange={this.change}
+            value={keyword}
+          />
+        </p>
+        <hr />
         <AccountBookInfoList
-          list={list}
+          list={filteredList}
           onRemove={this.remove}
           onUpdate={this.update}
         />

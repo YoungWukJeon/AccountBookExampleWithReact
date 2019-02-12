@@ -77,6 +77,20 @@ class AccountBookInfo extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // 현재 수정 중인 상태가 아니고 다음 state 역시 수정 중이지 않고 다음 props.data와 현재 props.data가 같다면
+    // 리렌더링 방지
+    if (
+      !this.state.editing &&
+      !nextState.editing &&
+      nextProps.data === this.props.data
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
     const style = {
       border: "1px solid black",

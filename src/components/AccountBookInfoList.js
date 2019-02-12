@@ -8,6 +8,10 @@ class AccountBookInfoList extends Component {
     onUpdate: () => console.warn("onUpdate is not defined.")
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.list !== this.props.list;
+  }
+
   render() {
     const { list, onRemove, onUpdate } = this.props;
     const infoList = list.map(info => (
